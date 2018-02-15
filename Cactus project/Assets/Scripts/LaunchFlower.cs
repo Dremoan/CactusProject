@@ -83,7 +83,7 @@ public class LaunchFlower : MonoBehaviour {
 	{
 		Vector2 dirToPlace = flowerPlace.transform.position - transform.position;
 		bodyFlower.velocity = dirToPlace.normalized * flowerSpeedBack * Time.fixedDeltaTime;
-		if(Vector2.Distance(player.transform.position, transform.position)< 0.1f)
+		if(Vector2.Distance(player.transform.position, transform.position)< 10f)
 		{
 			isBacking = false;
 			isHooked = false;

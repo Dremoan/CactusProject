@@ -8,19 +8,22 @@ public class EauLancee : MonoBehaviour {
 	public Rigidbody2D body;
 	public Rigidbody2D playerBody;
 	public GameObject player;
+	public GameObject flowerBody;
+	public GameObject waterTarget;
 
 	[HideInInspector]public bool dispo = true;
 	private float maxDist;
 	private Vector2 dirToTarget;
+	private Vector2 dirToEauPos;
 
 	// Use this for initialization
 	void Start () 
 	{
-		maxDist = playerBody.GetComponent<PlayerBehavior> ().maxCibleDist;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		dirToEauPos = waterTarget.transform.position - flowerBody.transform.position;
 		Shoot ();
 	}
 
@@ -33,7 +36,7 @@ public class EauLancee : MonoBehaviour {
 			eauLancee.AddForce (dirToTarget.normalized * shootSpeed, ForceMode2D.Impulse);
 		}*/
 		body.velocity = transform.right * shootSpeed * Time.fixedDeltaTime;
-		if(Vector3.Distance(transform.position, playerBody.transform.position) > maxDist)
+		if(Vector3.Distance(transform.position, playerBody.transform.position) > dirToEauPos.magnitude)
 		{
 			DropManagerComponent.RemoveDrop (this);
 		}

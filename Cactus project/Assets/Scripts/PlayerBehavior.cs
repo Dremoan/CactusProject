@@ -9,7 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public float jumpTime = 0.5f;
 	public float jumpCoolDown = 1f;
 	public float actualSpeed;
-	public float maxCibleDist = 0.2f;
+	public float maxCibleDist = 20f;
 
 	private bool canJump= true;
 	private bool isMoving;
@@ -21,11 +21,11 @@ public class PlayerBehavior : MonoBehaviour {
 	public LaunchFlower Fleur;
 	public Rigidbody2D body;
 	public Vector2 move;
+	public Vector3 eauPos;
 
 	private Animator anim;
 	private Vector2 mousePos;
 	private Vector2 lastMove;
-	private Vector3 eauPos;
 
 	void Start () 
 	{

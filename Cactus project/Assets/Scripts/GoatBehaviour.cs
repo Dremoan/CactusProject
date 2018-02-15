@@ -51,7 +51,7 @@ public class GoatBehaviour : MonoBehaviour {
 
 	private void Patrol()
 	{
-		if(Vector3.Distance(transform.position, currentPatrolPoint.position) < .1f)
+		if(Vector3.Distance(transform.position, currentPatrolPoint.position) < 1f)
 		{
 			if(currentPatrolIndex +1 < patrolPoints.Length)
 			{
@@ -77,7 +77,6 @@ public class GoatBehaviour : MonoBehaviour {
 	}
 	private void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log ("touched someting");
 		if(col.gameObject.tag == "Player" && targetAcquired)
 		{
 			Debug.Log ("player got ejected");
