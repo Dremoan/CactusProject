@@ -7,15 +7,20 @@ public class GoatBehaviour : MonoBehaviour {
 	public Transform[] patrolPoints;
 	public Transform target;
 	public Rigidbody2D body;
+	public Rigidbody2D playerBody;
+	public PlayerBehavior playerScript;
 	public Animator ani;
 	public float speed = 5f;
 	public float chargingSpeed = 10f;
 	public float waitTime = 1f;
+	public float ejectSpeed;
+	public float ejectingTime;
+	public bool isMoving = true;
 
 	private Transform currentPatrolPoint;
 	private int currentPatrolIndex;
 	private bool targetAcquired = false;
-	private bool isMoving = true;
+	private bool touchedPlayer = false;
 
 	// Use this for initialization
 	void Start () 
@@ -32,7 +37,6 @@ public class GoatBehaviour : MonoBehaviour {
 			Patrol ();
 		}
 		Animations ();
-
 
 		if(body.velocity.x == 0 && body.velocity.y == 0)
 		{
@@ -79,7 +83,8 @@ public class GoatBehaviour : MonoBehaviour {
 	{
 		if(col.gameObject.tag == "Player" && targetAcquired)
 		{
-			Debug.Log ("player got ejected");
+			StartCoroutine (EjectingPlayer ());
+
 		}
 		if(col.gameObject.tag == "Obstacle")
 		{
@@ -96,5 +101,21 @@ public class GoatBehaviour : MonoBehaviour {
 		Vector3 dirToTarget = target.position - transform.position;
 		body.velocity = dirToTarget.normalized * chargingSpeed * Time.fixedDeltaTime;
 		yield return new WaitForSeconds (waitTime * 2);
+	}
+
+	IEnumerator EjectingPlayer()
+	{
+		playerBody.velocity = Vector2.zero;
+		body.velocity = Vector2.zero;
+		yield return new WaitForSeconds (0.005f);
+		playerScript.canMove = false;
+		playerScript.canJump = false;
+		Vector3 dirToGoat = playerBody.transform.position - body.transform.position;
+		playerBody.AddForce (dirToGoat.normalized * ejectSpeed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+		yield return new WaitForSeconds (ejectingTime);
+		targetAcquired = false;
+		touchedPlayer = false;
+		playerScript.canMove = true;
+		playerScript.canJump = true;
 	}
 }

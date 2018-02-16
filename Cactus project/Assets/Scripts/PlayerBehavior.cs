@@ -10,8 +10,9 @@ public class PlayerBehavior : MonoBehaviour {
 	public float jumpCoolDown = 1f;
 	public float actualSpeed;
 	public float maxCibleDist = 20f;
+	public bool canMove = true;
+	public bool canJump = true;
 
-	private bool canJump= true;
 	private bool isMoving;
 	private bool holdsWater;
 	[HideInInspector] public bool isAiming = false;
@@ -35,7 +36,7 @@ public class PlayerBehavior : MonoBehaviour {
 	void Update () 
 	{
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
-		if (canJump) 
+		if (canJump && canMove) 
 		{
 			Move ();
 		}

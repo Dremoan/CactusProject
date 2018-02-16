@@ -22,7 +22,8 @@ public class EauLancee : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		dirToEauPos = waterTarget.transform.position - flowerBody.transform.position;
 		Shoot ();
 	}
