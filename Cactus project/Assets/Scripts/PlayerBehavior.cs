@@ -102,12 +102,12 @@ public class PlayerBehavior : MonoBehaviour {
 		if(horizontal > 0.1f || horizontal < -0.1f)
 		{
 			isMoving = true;
-			lastMove = new Vector2(horizontal, 0f);
+			lastMove = new Vector2(horizontal, vertical);
 		}
 		if(vertical > 0.1f || vertical < -0.1f)
 		{
 			isMoving = true;
-			lastMove = new Vector2(0f, vertical);
+			lastMove = new Vector2(horizontal, vertical);
 		}
 
 		move = new Vector2(horizontal, vertical);
