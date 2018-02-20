@@ -5,7 +5,6 @@ using UnityEngine;
 public class QuickSand : MonoBehaviour 
 {
 	public GameObject goat;
-	public GameObject attractingZone;
 	public Animator anim;
 	public PointEffector2D effect;
 	private Vector2 dirToCenter;
@@ -22,10 +21,10 @@ public class QuickSand : MonoBehaviour
 		Debug.Log (dirToCenter.magnitude);
 		dirToCenter = goat.transform.position - transform.position;
 		anim.SetBool ("isInSand", isInSand);
-		if(dirToCenter.magnitude < 20f)
+		if(dirToCenter.magnitude < 10f)
 		{
 			effect.enabled = false;
-			attractingZone.transform.position = transform.position;
+			goat.transform.position = transform.position;
 		}
 
 		if(isInSand)

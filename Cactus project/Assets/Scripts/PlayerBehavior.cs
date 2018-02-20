@@ -62,7 +62,7 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		canJump = false;
 		body.velocity = Vector2.zero;
-		body.velocity = mousePos.normalized * jumpSpeed * Time.fixedDeltaTime;
+		body.velocity = lastMove.normalized * jumpSpeed * Time.fixedDeltaTime;
 		yield return new WaitForSeconds (jumpTime);
 		canJump = true;
 	}
