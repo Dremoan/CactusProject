@@ -12,6 +12,8 @@ TagManager:
   - QuickSand
   - Goat
   - HiddenObject
+  - InteractingZone
+  - GoingUp
   layers:
   - Default
   - TransparentFX

@@ -5,8 +5,8 @@ using UnityEngine;
 public class QuickSand : MonoBehaviour 
 {
 	public GameObject goat;
+	public GameObject goatInSand;
 	public Animator anim;
-	public PointEffector2D effect;
 	private Vector2 dirToCenter;
 	private bool isInSand = false;
 
@@ -18,19 +18,13 @@ public class QuickSand : MonoBehaviour
 
 	void Update () 
 	{
-		Debug.Log (dirToCenter.magnitude);
 		dirToCenter = goat.transform.position - transform.position;
-		anim.SetBool ("isInSand", isInSand);
-		if(dirToCenter.magnitude < 10f)
-		{
-			effect.enabled = false;
-			goat.transform.position = transform.position;
-		}
+//		anim.SetBool ("isInSand", isInSand);
 
 		if(isInSand)
 		{
-			goat.GetComponent<GoatBehaviour> ().isMoving = false;
-			goat.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+			goat.SetActive (false);
+			goatInSand.SetActive (true);
 		}
 	}
 

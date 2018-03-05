@@ -12,6 +12,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public float maxCibleDist = 20f;
 	public bool canMove = true;
 	public bool canJump = true;
+	public bool isInteracting = false;
 
 	private bool isMoving;
 	private bool holdsWater;
@@ -36,6 +37,7 @@ public class PlayerBehavior : MonoBehaviour {
 	void Update () 
 	{
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
+
 		if (canJump && canMove) 
 		{
 			Move ();
@@ -115,4 +117,22 @@ public class PlayerBehavior : MonoBehaviour {
 		body.velocity = move.normalized * actualSpeed;
 	}
 
+	void OnTriggerStay2D(Collider2D coll)
+	{
+		if(coll.gameObject.tag == "InteractingZone")
+		{
+			if (Input.GetKeyDown (KeyCode.A)) 
+			{
+				isInteracting = true;
+			}
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D coll)
+	{
+		if(coll.gameObject.tag == "InteractingZone")
+		{
+				isInteracting = false;
+		}
+	}
 }
