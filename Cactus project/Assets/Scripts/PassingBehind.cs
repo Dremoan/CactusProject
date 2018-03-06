@@ -5,6 +5,7 @@ using UnityEngine;
 public class PassingBehind : MonoBehaviour {
 
 	public SpriteRenderer ObjectToHide;
+	public SpriteRenderer ObjectToHide2;
 	public int layerNumber;
 	private bool isBehind = false;
 	// Use this for initialization
@@ -25,6 +26,7 @@ public class PassingBehind : MonoBehaviour {
 		if (coll.gameObject.tag == "OrderLayer" && !isBehind)
 		{
 			ObjectToHide.sortingOrder = ObjectToHide.sortingOrder - layerNumber;
+			ObjectToHide2.sortingOrder = ObjectToHide.sortingOrder;
 			isBehind = true;
 		}
 	}
@@ -33,6 +35,7 @@ public class PassingBehind : MonoBehaviour {
 		if (coll.gameObject.tag == "OrderLayer" && isBehind)
 		{
 			ObjectToHide.sortingOrder = ObjectToHide.sortingOrder + layerNumber;
+			ObjectToHide2.sortingOrder = ObjectToHide.sortingOrder + 1;
 			isBehind = false;
 		}
 	}
