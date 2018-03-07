@@ -10,9 +10,10 @@ public class PlayerBehavior : MonoBehaviour {
 	public float jumpCoolDown = 1f;
 	public float actualSpeed;
 	public float maxCibleDist = 20f;
-	public bool canMove = true;
-	public bool canJump = true;
-	public bool isInteracting = false;
+	[HideInInspector] public bool canMove = true;
+	[HideInInspector] public bool canJump = true;
+	[HideInInspector] public bool isJumping = false;
+	[HideInInspector] public bool isInteracting = false;
 
 	private bool isMoving;
 	private bool holdsWater;
@@ -45,9 +46,12 @@ public class PlayerBehavior : MonoBehaviour {
 
 			aimWater ();
 
-			if (Input.GetKeyDown (KeyCode.Space) && canJump == true) {
-				StartCoroutine (dashingDelay ());
-			}
+		if (Input.GetKeyDown (KeyCode.Space) && canJump == true) 
+		{
+			isJumping = true;
+			StartCoroutine (dashingDelay ());
+		}
+
 			
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 		float vertical = Input.GetAxisRaw ("Vertical");
@@ -57,9 +61,7 @@ public class PlayerBehavior : MonoBehaviour {
 		anim.SetFloat ("LastMoveX", lastMove.x);
 		anim.SetFloat ("LastMoveY", lastMove.y);
 	}
-
-
-
+		
 	IEnumerator dashingDelay()
 	{
 		canJump = false;
@@ -67,7 +69,9 @@ public class PlayerBehavior : MonoBehaviour {
 		body.velocity = lastMove.normalized * jumpSpeed * Time.fixedDeltaTime;
 		yield return new WaitForSeconds (jumpTime);
 		canJump = true;
+		isJumping = false;
 	}
+		
 
 	void aimWater()
 	{

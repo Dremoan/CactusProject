@@ -105,5 +105,11 @@ public class LaunchFlower : MonoBehaviour {
 			StartCoroutine (hookDelay ());
 			holdsWater = true;
 		}
+		if(coll.gameObject.tag == "Activation" && isLaunched && holdsWater == false)
+		{
+			isHooked = true;
+			hookedThing = coll.gameObject;
+			StartCoroutine (hookDelay ());
+		}
 	}
 }
