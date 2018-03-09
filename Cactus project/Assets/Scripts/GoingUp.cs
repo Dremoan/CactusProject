@@ -5,13 +5,15 @@ using UnityEngine;
 public class GoingUp : MonoBehaviour {
 
 
-	public Collider2D highPlatform;
+	public GameObject goatInSand;
 	public GameObject player;
 	public GameObject flower;
 	public GameObject goingDown;
+	public Collider2D highPlatform;
+	public Collider2D ladderCollider;
 	public Collider2D levelCollider;
-	public float waitTime = 1f;
-	public bool isHigh;
+	public float waitTime = 0.25f;
+	public bool isHigh = false;
 
 	// Use this for initialization
 	void Start () 
@@ -27,10 +29,9 @@ public class GoingUp : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D coll)
 	{
-		if(coll.gameObject.tag == "Player" && !isHigh)
+		if(coll.gameObject.tag == "Player" && !isHigh && goatInSand.GetComponent<GoatInSand>().inTheAir)
 		{
 			StartCoroutine (ActiveCollider ());
-
 		}
 	}
 
@@ -42,6 +43,8 @@ public class GoingUp : MonoBehaviour {
 		isHigh = true;
 		highPlatform.enabled = true;
 		levelCollider.enabled = false;
+		ladderCollider.enabled = true;
 		this.GetComponent<Collider2D> ().enabled = false;
+		goingDown.GetComponent<Collider2D> ().enabled = true;
 	}
 }

@@ -20,7 +20,6 @@ public class GoatBehaviour : MonoBehaviour {
 	private Transform currentPatrolPoint;
 	private int currentPatrolIndex;
 	private bool targetAcquired = false;
-	private bool touchedPlayer = false;
 
 	// Use this for initialization
 	void Start () 
@@ -114,7 +113,6 @@ public class GoatBehaviour : MonoBehaviour {
 		playerBody.AddForce (dirToGoat.normalized * ejectSpeed * Time.fixedDeltaTime, ForceMode2D.Impulse);
 		yield return new WaitForSeconds (ejectingTime);
 		targetAcquired = false;
-		touchedPlayer = false;
 		playerScript.canMove = true;
 		playerScript.canJump = true;
 	}

@@ -13,7 +13,7 @@ public class PlayerBehavior : MonoBehaviour {
 	[HideInInspector] public bool canMove = true;
 	[HideInInspector] public bool canJump = true;
 	[HideInInspector] public bool isJumping = false;
-	[HideInInspector] public bool isInteracting = false;
+	[HideInInspector] public bool pressingA = false;
 
 	private bool isMoving;
 	private bool holdsWater;
@@ -45,6 +45,15 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 
 			aimWater ();
+
+		if (Input.GetKeyDown (KeyCode.A)) 
+		{
+			pressingA = true;
+		}
+		if (Input.GetKeyUp (KeyCode.A)) 
+		{
+			pressingA = false;
+		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && canJump == true) 
 		{
@@ -121,22 +130,5 @@ public class PlayerBehavior : MonoBehaviour {
 		body.velocity = move.normalized * actualSpeed;
 	}
 
-	void OnTriggerStay2D(Collider2D coll)
-	{
-		if(coll.gameObject.tag == "InteractingZone")
-		{
-			if (Input.GetKeyDown (KeyCode.A)) 
-			{
-				isInteracting = true;
-			}
-		}
-	}
 
-	void OnTriggerExit2D(Collider2D coll)
-	{
-		if(coll.gameObject.tag == "InteractingZone")
-		{
-				isInteracting = false;
-		}
-	}
 }

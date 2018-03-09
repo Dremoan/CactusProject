@@ -7,7 +7,6 @@ public class QuickSand : MonoBehaviour
 	public GameObject goat;
 	public GameObject goatInSand;
 	public Animator anim;
-	private Vector2 dirToCenter;
 	private bool isInSand = false;
 
 	void Start () 
@@ -18,8 +17,6 @@ public class QuickSand : MonoBehaviour
 
 	void Update () 
 	{
-		dirToCenter = goat.transform.position - transform.position;
-//		anim.SetBool ("isInSand", isInSand);
 
 		if(isInSand)
 		{
