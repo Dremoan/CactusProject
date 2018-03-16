@@ -6,7 +6,6 @@ public class JumpingThru : MonoBehaviour {
 
 
 	public GameObject player;
-	[HideInInspector] public bool isOnEdge;
 
 	// Use this for initialization
 	void Start () 
@@ -17,7 +16,7 @@ public class JumpingThru : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(isOnEdge && player.GetComponent<PlayerBehavior>().isJumping)
+		if(player.GetComponent<PlayerBehavior>().isJumping)
 		{
 			StartCoroutine (InactiveCollider ());
 		}
@@ -25,14 +24,8 @@ public class JumpingThru : MonoBehaviour {
 
 	IEnumerator InactiveCollider()
 	{
-		this.GetComponent<BoxCollider2D> ().enabled = false;
-		yield return new WaitForSeconds (0.75f);
-		this.GetComponent<BoxCollider2D> ().enabled = true;
-	}
-		
-
-	void OnCollisionStay2D(Collision2D coll)
-	{
-		isOnEdge = true;
+		Physics2D.IgnoreCollision (player.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:true);
+		yield return new WaitForSeconds (1f);
+		Physics2D.IgnoreCollision (player.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:false);
 	}
 }

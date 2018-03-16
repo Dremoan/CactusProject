@@ -37,6 +37,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void Update () 
 	{
+		Debug.Log ("CanJump" + canJump);
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 
 		if (canJump && canMove) 
@@ -55,7 +56,7 @@ public class PlayerBehavior : MonoBehaviour {
 			pressingA = false;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && canJump == true) 
+		if (Input.GetKeyDown (KeyCode.Space) && canJump == true && !isJumping) 
 		{
 			isJumping = true;
 			StartCoroutine (dashingDelay ());
