@@ -5,7 +5,7 @@ using UnityEngine;
 public class SlingShot : MonoBehaviour {
 
 	public GoatInSand goatScript;
-	public GameObject player;
+	public GameObject flower;
 	public LineRenderer lianeRend;
 
 
@@ -31,6 +31,6 @@ public class SlingShot : MonoBehaviour {
 	{
 		lianeRend.enabled = true;
 		lianeRend.SetPosition (0, transform.position);
-		lianeRend.SetPosition (1, player.transform.position);
+		lianeRend.SetPosition (1, flower.transform.position);
 	}
 }

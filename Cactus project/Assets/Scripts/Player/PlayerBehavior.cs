@@ -14,10 +14,11 @@ public class PlayerBehavior : MonoBehaviour {
 	[HideInInspector] public bool canJump = true;
 	[HideInInspector] public bool isJumping = false;
 	[HideInInspector] public bool pressingA = false;
+	[HideInInspector] public bool canCharge = false;
+	[HideInInspector] public bool isAiming = false;
 
 	private bool isMoving;
 	private bool holdsWater;
-	[HideInInspector] public bool isAiming = false;
 
 	public Transform player;
 	public GameObject eau;
@@ -56,9 +57,10 @@ public class PlayerBehavior : MonoBehaviour {
 			pressingA = false;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && canJump == true && !isJumping) 
+		if (Input.GetKeyDown (KeyCode.Space) && canJump == true && !isJumping && !canCharge) 
 		{
 			isJumping = true;
+			canCharge = true;
 			StartCoroutine (dashingDelay ());
 		}
 
@@ -81,6 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
 		yield return new WaitForSeconds (jumpTime);
 		canJump = true;
 		isJumping = false;
+		canCharge = false;
 	}
 		
 
