@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 [ExecuteInEditMode]
 public class SpriteReflected : MonoBehaviour {
+	
     public SpriteRenderer player;
     private SpriteRenderer spriteRenderer;
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
         spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 	
