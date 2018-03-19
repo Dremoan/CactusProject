@@ -16,6 +16,7 @@ public class PlayerBehavior : MonoBehaviour {
 	[HideInInspector] public bool pressingA = false;
 	[HideInInspector] public bool canCharge = false;
 	[HideInInspector] public bool isAiming = false;
+	[HideInInspector] public bool hasKey = false;
 
 	private bool isMoving;
 	private bool holdsWater;
@@ -38,7 +39,6 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void Update () 
 	{
-		Debug.Log ("CanJump" + canJump);
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 
 		if (canJump && canMove) 
@@ -68,7 +68,7 @@ public class PlayerBehavior : MonoBehaviour {
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 		float vertical = Input.GetAxisRaw ("Vertical");
 		anim.SetBool ("isMoving", isMoving);
-		anim.SetBool ("isJumping", isJumping);
+//		anim.SetBool ("isJumping", isJumping);
 		anim.SetFloat ("Horizontal", horizontal);
 		anim.SetFloat ("Vertical", vertical);
 		anim.SetFloat ("LastMoveX", lastMove.x);

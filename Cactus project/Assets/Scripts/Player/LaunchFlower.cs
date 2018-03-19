@@ -6,6 +6,7 @@ public class LaunchFlower : MonoBehaviour {
 
 	public GameObject player;
 	public Transform flowerPlace;
+	public Transform lianePlace;
 	public Rigidbody2D bodyFlower;
 	public Rigidbody2D bodyPlayer;
 	public LineRenderer lianeRend;
@@ -58,9 +59,10 @@ public class LaunchFlower : MonoBehaviour {
 	public void Launch()
 	{
 		lianeRend.SetPosition (0, transform.position);
-		lianeRend.SetPosition (1, flowerPlace.transform.position);
+		lianeRend.SetPosition (1, lianePlace.transform.position);
 		if(Input.GetMouseButtonDown(0) && !isLaunched && !isBacking && !isHooked)
 		{
+			lianeRend.enabled = true;
 			bodyFlower.velocity = mousePos.normalized * flowerSpeed * Time.fixedDeltaTime;
 			isLaunched = true;
 		}
@@ -85,6 +87,7 @@ public class LaunchFlower : MonoBehaviour {
 		bodyFlower.velocity = dirToPlace.normalized * flowerSpeedBack * Time.fixedDeltaTime;
 		if(Vector2.Distance(player.transform.position, transform.position)< 10f)
 		{
+			lianeRend.enabled = false;
 			isBacking = false;
 			isHooked = false;
 			isLaunched = false;
@@ -104,12 +107,6 @@ public class LaunchFlower : MonoBehaviour {
 			hookedThing = coll.gameObject;
 			StartCoroutine (hookDelay ());
 			holdsWater = true;
-		}
-		if(coll.gameObject.tag == "Activation" && isLaunched && holdsWater == false)
-		{
-			isHooked = true;
-			hookedThing = coll.gameObject;
-			StartCoroutine (hookDelay ());
 		}
 	}
 }
