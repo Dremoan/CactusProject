@@ -30,7 +30,7 @@ public class Ladder : MonoBehaviour
 		}
 		if(this.GetComponent<interactingScript>().canInteract && player.GetComponent<PlayerBehavior>().pressingA)
 		{
-			player.transform.Translate (ladderPos2.transform.position - this.transform.position);
+			player.transform.position = ladderPos2.transform.position;
 		}
 	}
 

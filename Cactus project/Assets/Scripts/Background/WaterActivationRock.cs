@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterActivationRock : MonoBehaviour {
 
 	public GameObject keyRock;
+	public GameObject keyRockPlace;
 	public bool isActive = false;
 
 	// Use this for initialization
@@ -24,7 +25,7 @@ public class WaterActivationRock : MonoBehaviour {
 		if(coll.gameObject.Equals(keyRock))
 		{
 			isActive = true;
-			keyRock.transform.position = transform.position;
+			keyRock.transform.position = keyRockPlace.transform.position;
 			keyRock.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 			keyRock.GetComponent<Rigidbody2D> ().isKinematic = true;
 		}

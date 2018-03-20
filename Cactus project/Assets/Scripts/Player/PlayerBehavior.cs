@@ -17,8 +17,8 @@ public class PlayerBehavior : MonoBehaviour {
 	[HideInInspector] public bool canCharge = false;
 	[HideInInspector] public bool isAiming = false;
 	[HideInInspector] public bool hasKey = false;
+	[HideInInspector] public bool isMoving;
 
-	private bool isMoving;
 	private bool holdsWater;
 
 	public Transform player;

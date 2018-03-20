@@ -8,6 +8,7 @@ public class GoingUp : MonoBehaviour {
 	public GameObject goatInSand;
 	public GameObject player;
 	public GameObject flower;
+	public GameObject shadow;
 	public GameObject goingDown;
 	public Collider2D highPlatform;
 	public Collider2D ladderCollider;
@@ -37,8 +38,9 @@ public class GoingUp : MonoBehaviour {
 
 	IEnumerator ActiveCollider()
 	{
+		shadow.GetComponent<SpriteRenderer> ().sortingOrder += 8;
 		player.GetComponent<SpriteRenderer> ().sortingOrder += 8;
-		flower.GetComponent<SpriteRenderer> ().sortingOrder += 9;
+		flower.GetComponent<SpriteRenderer> ().sortingOrder += 8;
 		yield return new WaitForSeconds (waitTime);
 		isHigh = true;
 		highPlatform.enabled = true;

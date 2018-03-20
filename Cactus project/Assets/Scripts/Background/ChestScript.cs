@@ -7,7 +7,8 @@ public class ChestScript : MonoBehaviour {
 	public GameObject keyOnScreen;
 	public GameObject player;
 	public GameObject interactingZone;
-	public Animator chestAnim;
+	public GameObject key;
+	public Collider2D blockingWay;
 
 	private bool isNearChest = false;
 	private bool isOpened = false;
@@ -19,7 +20,6 @@ public class ChestScript : MonoBehaviour {
 
 	void Update () 
 	{
-		chestAnim.SetBool ("IsOpened", isOpened);
 
 		if(interactingZone.GetComponent<interactingScript>().canInteract)
 		{
@@ -35,6 +35,11 @@ public class ChestScript : MonoBehaviour {
 			keyOnScreen.SetActive (true);
 			player.GetComponent<PlayerBehavior> ().hasKey = true;
 			isOpened = true;
+		}
+		if(isOpened)
+		{
+			key.SetActive (false);
+			blockingWay.enabled = false;
 		}
 	}
 }
