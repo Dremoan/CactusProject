@@ -5,6 +5,7 @@ using UnityEngine;
 public class LaunchFlower : MonoBehaviour {
 
 	public GameObject player;
+	public Animator animFlower;
 	public Transform flowerPlace;
 	public Transform lianePlace;
 	public Rigidbody2D bodyFlower;
@@ -53,6 +54,7 @@ public class LaunchFlower : MonoBehaviour {
 		}
 
 		Launch ();
+		Animations ();
 	}
 
 
@@ -108,5 +110,14 @@ public class LaunchFlower : MonoBehaviour {
 			StartCoroutine (hookDelay ());
 			holdsWater = true;
 		}
+	}
+
+	void Animations()
+	{
+		animFlower.SetFloat ("Horizontal", Input.GetAxisRaw ("Horizontal"));
+		animFlower.SetFloat ("Vertical", Input.GetAxisRaw ("Vertical"));
+		animFlower.SetFloat ("LastMoveX", player.GetComponent<PlayerBehavior> ().lastMove.x);
+		animFlower.SetFloat ("LastMoveY", player.GetComponent<PlayerBehavior> ().lastMove.y);
+		animFlower.SetBool ("IsMoving", player.GetComponent<PlayerBehavior>().isMoving);
 	}
 }

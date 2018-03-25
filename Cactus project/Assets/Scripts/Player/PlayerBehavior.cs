@@ -27,10 +27,10 @@ public class PlayerBehavior : MonoBehaviour {
 	public Rigidbody2D body;
 	public Vector2 move;
 	public Vector3 eauPos;
+	[HideInInspector] public Vector2 lastMove;
 
 	private Animator anim;
 	private Vector2 mousePos;
-	private Vector2 lastMove;
 
 	void Start () 
 	{
