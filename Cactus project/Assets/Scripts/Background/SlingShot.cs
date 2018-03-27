@@ -6,8 +6,9 @@ public class SlingShot : MonoBehaviour {
 
 	public GoatInSand goatScript;
 	public GameObject flower;
-	public LineRenderer lianeRend;
-
+	public GameObject liane;
+	public GameObject flowerTarget;
+	private bool lianeActive;
 
 	void Start () 
 	{
@@ -17,20 +18,29 @@ public class SlingShot : MonoBehaviour {
 
 	void Update () 
 	{
-		if(goatScript.GetComponent<GoatInSand>().isCharging)
+		if(goatScript.GetComponent<GoatInSand>().isCharging && flower.GetComponent<LaunchFlower>().hitGoat == true)
 		{
 			DrawLine ();
 		}
-		if(goatScript.GetComponent<GoatInSand>().isCharging == false)
+		if(goatScript.GetComponent<GoatInSand>().inTheAir == true)
 		{
-			lianeRend.enabled = false;
+			liane.SetActive (false);
+			lianeActive = false;
 		}
 	}
 
 	void DrawLine()
 	{
-		lianeRend.enabled = true;
-		lianeRend.SetPosition (0, transform.position);
-		lianeRend.SetPosition (1, flower.transform.position);
+		liane.SetActive (true);
+		lianeActive = true;
+
+		if (lianeActive) 
+		{
+			Vector2 dirToFlower = transform.position - flower.transform.position;
+			float rot_Z = Mathf.Atan2 (dirToFlower.y, dirToFlower.x) * Mathf.Rad2Deg;
+			liane.transform.rotation = Quaternion.Euler (0f, 0f, rot_Z - 90f);
+			liane.GetComponent<SpriteRenderer> ().size = new Vector2 (3, Vector2.Distance (transform.position, flower.transform.position));
+		}
+
 	}
 }

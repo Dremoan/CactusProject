@@ -68,7 +68,7 @@ public class PlayerBehavior : MonoBehaviour {
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 		float vertical = Input.GetAxisRaw ("Vertical");
 		anim.SetBool ("isMoving", isMoving);
-//		anim.SetBool ("isJumping", isJumping);
+		anim.SetBool ("isJumping", isJumping);
 		anim.SetFloat ("Horizontal", horizontal);
 		anim.SetFloat ("Vertical", vertical);
 		anim.SetFloat ("LastMoveX", lastMove.x);

@@ -22,10 +22,11 @@ public class QuickSand : MonoBehaviour
 		{
 			goat.SetActive (false);
 			goatInSand.SetActive (true);
+			this.GetComponent<PolygonCollider2D> ().enabled = false;
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
+	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.tag == "Goat")
 		{

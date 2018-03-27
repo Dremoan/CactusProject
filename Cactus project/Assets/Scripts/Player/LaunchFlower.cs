@@ -5,12 +5,14 @@ using UnityEngine;
 public class LaunchFlower : MonoBehaviour {
 
 	public GameObject player;
+	public GameObject liane;
+	public GameObject flowerTarget;
+	public GameObject goatInSand;
 	public Animator animFlower;
 	public Transform flowerPlace;
 	public Transform lianePlace;
 	public Rigidbody2D bodyFlower;
 	public Rigidbody2D bodyPlayer;
-	public LineRenderer lianeRend;
 	public float flowerSpeed = 10f;
 	public float flowerSpeedBack = 20f;
 	public float maxDistanceToFlower = 1f;
@@ -18,38 +20,64 @@ public class LaunchFlower : MonoBehaviour {
 
 	private Vector2 mousePos;
 	private GameObject hookedThing;
-	private bool isLaunched = false;
+	[HideInInspector] public bool isLaunched = false;
+	private bool lianeActive = false;
 	private bool isBacking = false;
 	private bool isHooked = false;
+	private bool onWater = false;
+	public bool canLaunch = true;
+	public bool hitGoat = false;
 	public bool holdsWater = false;
 
 	void Update () 
 	{
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 
+
 		if(!isLaunched && !isBacking && !isHooked)
 		{
 			transform.position = flowerPlace.position;
 		}
+
+
 
 		if(isBacking)
 		{
 			Back ();
 		}
 
+
+
 		if(maxDistanceToFlower < Vector2.Distance(player.transform.position, transform.position))
 		{
 			isLaunched = false;
 			isBacking = true;
 		}
+
+
 		if(hookedThing!= null && isHooked)
 		{
 			HookEnemy (hookedThing);
 		}
 
+
+
 		if(Vector2.Distance(player.transform.position, transform.position) < maxDistanceToFlower && isHooked)
 		{
 			isLaunched = false;
+			isBacking = true;
+		}
+
+
+		if(goatInSand.GetComponent<GoatInSand>().inTheAir)
+		{
+			StartCoroutine (InactiveCollider ());
+		}
+
+		if(onWater && player.GetComponent<PlayerBehavior>().pressingA)
+		{
+			holdsWater = true;
+			isHooked = false;
 			isBacking = true;
 		}
 
@@ -58,13 +86,20 @@ public class LaunchFlower : MonoBehaviour {
 	}
 
 
+
+
+
 	public void Launch()
 	{
-		lianeRend.SetPosition (0, transform.position);
-		lianeRend.SetPosition (1, lianePlace.transform.position);
-		if(Input.GetMouseButtonDown(0) && !isLaunched && !isBacking && !isHooked)
+		if (lianeActive) 
 		{
-			lianeRend.enabled = true;
+			StartCoroutine (lianeSprite ());
+		}
+			
+		if(Input.GetMouseButtonDown(0) && !isLaunched && !isBacking && !isHooked && canLaunch)
+		{
+			liane.SetActive (true);
+			lianeActive = true;
 			bodyFlower.velocity = mousePos.normalized * flowerSpeed * Time.fixedDeltaTime;
 			isLaunched = true;
 		}
@@ -74,6 +109,10 @@ public class LaunchFlower : MonoBehaviour {
 				isBacking = true;
 			}
 	}
+		
+
+
+
 
 	IEnumerator hookDelay()
 	{
@@ -82,6 +121,23 @@ public class LaunchFlower : MonoBehaviour {
 		isBacking = true;
 	}
 
+	IEnumerator lianeSprite()
+	{
+		yield return new WaitForSeconds (0.05f);
+		Vector2 dirToFlower = lianePlace.transform.position - transform.position;
+		float rot_Z = Mathf.Atan2 (dirToFlower.y, dirToFlower.x) * Mathf.Rad2Deg;
+		liane.transform.rotation = Quaternion.Euler (0f, 0f, rot_Z - 90f);
+		liane.GetComponent<SpriteRenderer> ().size = new Vector2 (3, Vector2.Distance (lianePlace.transform.position, transform.position));
+	}
+
+	IEnumerator InactiveCollider()
+	{
+		Physics2D.IgnoreCollision (flowerTarget.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:true);
+		yield return new WaitForSeconds (1f);
+		Physics2D.IgnoreCollision (flowerTarget.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:false);
+	}
+
+
 
 	public void Back()
 	{
@@ -89,17 +145,25 @@ public class LaunchFlower : MonoBehaviour {
 		bodyFlower.velocity = dirToPlace.normalized * flowerSpeedBack * Time.fixedDeltaTime;
 		if(Vector2.Distance(player.transform.position, transform.position)< 10f)
 		{
-			lianeRend.enabled = false;
+			liane.SetActive (false);
+			lianeActive = false;
 			isBacking = false;
 			isHooked = false;
 			isLaunched = false;
 		}
 	}
 
+
+
+
+
 	public void HookEnemy(GameObject hookThing)
 	{
 		transform.position = hookThing.transform.position;
 	}
+
+
+
 
 	void OnTriggerEnter2D(Collider2D coll)
 	{
@@ -107,10 +171,24 @@ public class LaunchFlower : MonoBehaviour {
 		{
 			isHooked = true;
 			hookedThing = coll.gameObject;
-			StartCoroutine (hookDelay ());
-			holdsWater = true;
+			onWater = true;
+		}
+		if(coll.gameObject.Equals(flowerTarget))
+		{
+			goatInSand.GetComponent<GoatInSand> ().isCharging = true;
+			lianeActive = false;
+			hitGoat = true;
+			isBacking = false;
+			isHooked = false;
+			isLaunched = false;
 		}
 	}
+
+
+
+
+
+
 
 	void Animations()
 	{
