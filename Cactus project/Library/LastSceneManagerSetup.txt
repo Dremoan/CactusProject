@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Tutoriel.unity
+- path: C:/Users/l.loth/Desktop/CactusProject - Copie/Cactus project/Assets/Scenes/Sous-sol.unity
   isLoaded: 1
   isActive: 1
