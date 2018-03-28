@@ -7,7 +7,6 @@ public class LaunchFlower : MonoBehaviour {
 	public GameObject player;
 	public GameObject liane;
 	public GameObject flowerTarget;
-	public GameObject goatInSand;
 	public Animator animFlower;
 	public Transform flowerPlace;
 	public Transform lianePlace;
@@ -68,12 +67,6 @@ public class LaunchFlower : MonoBehaviour {
 			isBacking = true;
 		}
 
-
-		if(goatInSand.GetComponent<GoatInSand>().inTheAir)
-		{
-			StartCoroutine (InactiveCollider ());
-		}
-
 		if(onWater && player.GetComponent<PlayerBehavior>().pressingA)
 		{
 			holdsWater = true;
@@ -98,6 +91,7 @@ public class LaunchFlower : MonoBehaviour {
 			
 		if(Input.GetMouseButtonDown(0) && !isLaunched && !isBacking && !isHooked && canLaunch)
 		{
+			this.GetComponent<CircleCollider2D> ().enabled = true;
 			liane.SetActive (true);
 			lianeActive = true;
 			bodyFlower.velocity = mousePos.normalized * flowerSpeed * Time.fixedDeltaTime;
@@ -130,13 +124,6 @@ public class LaunchFlower : MonoBehaviour {
 		liane.GetComponent<SpriteRenderer> ().size = new Vector2 (3, Vector2.Distance (lianePlace.transform.position, transform.position));
 	}
 
-	IEnumerator InactiveCollider()
-	{
-		Physics2D.IgnoreCollision (flowerTarget.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:true);
-		yield return new WaitForSeconds (1f);
-		Physics2D.IgnoreCollision (flowerTarget.GetComponent<Collider2D> (), this.GetComponent<Collider2D> (), ignore:false);
-	}
-
 
 
 	public void Back()
@@ -145,6 +132,7 @@ public class LaunchFlower : MonoBehaviour {
 		bodyFlower.velocity = dirToPlace.normalized * flowerSpeedBack * Time.fixedDeltaTime;
 		if(Vector2.Distance(player.transform.position, transform.position)< 10f)
 		{
+			this.GetComponent<CircleCollider2D> ().enabled = false;
 			liane.SetActive (false);
 			lianeActive = false;
 			isBacking = false;
@@ -173,9 +161,9 @@ public class LaunchFlower : MonoBehaviour {
 			hookedThing = coll.gameObject;
 			onWater = true;
 		}
-		if(coll.gameObject.Equals(flowerTarget))
+		if(coll.gameObject.tag == "GoatInSand")
 		{
-			goatInSand.GetComponent<GoatInSand> ().isCharging = true;
+			coll.gameObject.GetComponent<GoatInSand> ().isCharging = true;
 			lianeActive = false;
 			hitGoat = true;
 			isBacking = false;
@@ -183,7 +171,6 @@ public class LaunchFlower : MonoBehaviour {
 			isLaunched = false;
 		}
 	}
-
 
 
 
