@@ -7,6 +7,7 @@ public class LaunchFlower : MonoBehaviour {
 	public GameObject player;
 	public GameObject liane;
 	public GameObject flowerTarget;
+	public GoatInSand goatInSandScript;
 	public Animator animFlower;
 	public Transform flowerPlace;
 	public Transform lianePlace;
@@ -61,13 +62,13 @@ public class LaunchFlower : MonoBehaviour {
 
 
 
-		if(Vector2.Distance(player.transform.position, transform.position) < maxDistanceToFlower && isHooked)
+		if(Vector2.Distance(player.transform.position, transform.position) > maxDistanceToFlower && isHooked)
 		{
 			isLaunched = false;
 			isBacking = true;
 		}
 
-		if(onWater && player.GetComponent<PlayerBehavior>().pressingA)
+		if(onWater && Input.GetMouseButtonDown(1))
 		{
 			holdsWater = true;
 			isHooked = false;
@@ -161,9 +162,9 @@ public class LaunchFlower : MonoBehaviour {
 			hookedThing = coll.gameObject;
 			onWater = true;
 		}
-		if(coll.gameObject.tag == "GoatInSand")
+		if(coll.gameObject.Equals(flowerTarget))
 		{
-			coll.gameObject.GetComponent<GoatInSand> ().isCharging = true;
+			goatInSandScript.isCharging = true;
 			lianeActive = false;
 			hitGoat = true;
 			isBacking = false;
