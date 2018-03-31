@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class ButtonScript : MonoBehaviour {
 
@@ -21,6 +22,11 @@ public class ButtonScript : MonoBehaviour {
 		{
 			keyRock.SetActive (true);
 		}
+
+		if(Input.GetMouseButtonDown(0))
+		{
+			StartCoroutine (Shake ());
+		}
 	}
 
 
@@ -30,5 +36,13 @@ public class ButtonScript : MonoBehaviour {
 		{
 			isActive = true;
 		}
+	}
+
+
+	IEnumerator Shake()
+	{
+		CameraShaker.Instance.ShakeOnce (2f, 10f, 0.2f, 0.5f);
+		yield return new WaitForSeconds (0.5f);
+		CameraShaker.Instance.ShakeOnce (5f, 10f, 0.2f, 0.5f);
 	}
 }
