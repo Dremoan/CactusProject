@@ -7,6 +7,8 @@ public class ActivationRock : MonoBehaviour {
 
 	public GameObject keyRock;
 	public GameObject keyRockPlace;
+	public GameObject rockSlot;
+	public Animator rockSlotAnim;
 	public bool isActive = false;
 	private bool hasShake;
 	// Use this for initialization
@@ -18,7 +20,7 @@ public class ActivationRock : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		rockSlotAnim.SetBool ("IsActive", rockSlot.GetComponent<ActivationRock>().isActive);
 	}
 
 	void OnTriggerEnter2D(Collider2D coll)

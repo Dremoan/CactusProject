@@ -25,12 +25,17 @@ public class LaunchFlower : MonoBehaviour {
 	private bool isBacking = false;
 	private bool isHooked = false;
 	private bool onWater = false;
-	public bool canLaunch = true;
+	public bool canLaunch = false;
 	public bool hitGoat = false;
 	public bool holdsWater = false;
 
+	void Start()
+	{
+		canLaunch = false;
+	}
 	void Update () 
 	{
+		Debug.Log (canLaunch);
 		mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 
 

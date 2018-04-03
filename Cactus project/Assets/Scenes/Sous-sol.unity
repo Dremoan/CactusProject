@@ -2063,6 +2063,16 @@ Prefab:
       propertyPath: waterSource
       value: 
       objectReference: {fileID: 1431276548}
+    - target: {fileID: 114327616139036414, guid: 0a16076952842e048b66d00f187afe09,
+        type: 2}
+      propertyPath: rockSlot
+      value: 
+      objectReference: {fileID: 1769161537}
+    - target: {fileID: 114327616139036414, guid: 0a16076952842e048b66d00f187afe09,
+        type: 2}
+      propertyPath: rockSlotAnim
+      value: 
+      objectReference: {fileID: 1769161543}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a16076952842e048b66d00f187afe09, type: 2}
   m_IsPrefabParent: 0
@@ -2383,11 +2393,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4670049293329570, guid: db818d0efb589404d99a46e69bf308cb, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 281.1
+      value: 121.3
       objectReference: {fileID: 0}
     - target: {fileID: 4670049293329570, guid: db818d0efb589404d99a46e69bf308cb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 334
+      value: -44.5
       objectReference: {fileID: 0}
     - target: {fileID: 4670049293329570, guid: db818d0efb589404d99a46e69bf308cb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3314,11 +3324,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4770063462196500, guid: 2db1698c1211e0743a05b3ea224cc22f, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< Updated upstream
       value: 223.1
       objectReference: {fileID: 0}
     - target: {fileID: 4770063462196500, guid: 2db1698c1211e0743a05b3ea224cc22f, type: 2}
       propertyPath: m_LocalPosition.y
       value: -38.6
+=======
+      value: 120.59999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770063462196500, guid: 2db1698c1211e0743a05b3ea224cc22f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -51.600006
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 4770063462196500, guid: 2db1698c1211e0743a05b3ea224cc22f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4675,7 +4693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rockSlot: {fileID: 1769161537}
   waterSource: {fileID: 1431276548}
-  rockSlotAnim: {fileID: 1769161543}
   isActive: 0
 --- !u!1 &1441288847
 GameObject:
